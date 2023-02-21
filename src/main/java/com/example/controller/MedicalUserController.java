@@ -29,7 +29,7 @@ public class MedicalUserController {
 			@RequestParam(required = false) Integer medicalID) {
 
 		try {
-
+			System.out.println("Teste");
 			List<MedicalUserModel> result;		
 
 			if (medicalID == null) {
