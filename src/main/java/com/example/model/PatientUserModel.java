@@ -61,6 +61,20 @@ public class PatientUserModel {
 		this.province = province;
 		this.zipCode = zipCode;
 	}
+	
+	
+
+	public long getPatientId() {
+		return patientId;
+	}
+
+
+
+	public void setPatientId(long patientId) {
+		this.patientId = patientId;
+	}
+
+
 
 	public String getFullName() {
 		return fullName;
