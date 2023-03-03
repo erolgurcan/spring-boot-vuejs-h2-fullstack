@@ -31,18 +31,18 @@ public class PatientUserController {
 	
 	@GetMapping("/patientUsers")
 	public ResponseEntity<List<PatientUserModel>> getAllPatientUsers(
-			@RequestParam(required = false) String healthCard){
+			@RequestParam(required = false) String email){
 		try {
 			List<PatientUserModel> result; //= new ArrayList<PatientUserModel>();
 			
-			if(healthCard == null) {
+			if(email == null) {
 				result = patientUserRepository.findAll();
 				
 				return result.size() > 0 ? new ResponseEntity<List<PatientUserModel>>(result, HttpStatus.OK)
 						: new ResponseEntity("No result found", HttpStatus.NO_CONTENT);
 				
 			} else {
-				result = patientUserRepository.findByCard(healthCard);
+				result = patientUserRepository.findByEmail(email);
 				
 				return result.size() > 0 ? new ResponseEntity<List<PatientUserModel>>(result, HttpStatus.OK)
 						: new ResponseEntity("No result found", HttpStatus.NO_CONTENT);
@@ -53,8 +53,8 @@ public class PatientUserController {
 			
 	}
 	@GetMapping("/patientUsers/{id}")
-	public ResponseEntity<PatientUserModel> getPatientById(@PathVariable("id") long id){
-		Optional<PatientUserModel> patientData = patientUserRepository.findById(id);
+	public ResponseEntity<PatientUserModel> getPatientById(@PathVariable("id") long patientID){
+		Optional<PatientUserModel> patientData = patientUserRepository.findById(patientID);
 		
 		if(patientData.isPresent()) {
 			return new ResponseEntity<>(patientData.get(),HttpStatus.OK);
@@ -96,9 +96,9 @@ public class PatientUserController {
 	}
 	
 	@DeleteMapping("/patientUsers/{id}")
-	public ResponseEntity<HttpStatus> deletePatientUser(@PathVariable("id") long id){
+	public ResponseEntity<HttpStatus> deletePatientUser(@PathVariable("id") long patientID){
 		try {
-			patientUserRepository.deleteById(id);
+			patientUserRepository.deleteById(patientID);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}catch(Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -46,7 +46,9 @@ public class PatientUserModel {
 	 private String zipCode;
 
 	 
-	 
+	public PatientUserModel() {
+		
+	} 
 	public PatientUserModel(String fullName, String birthDate, String gender, String email, String phone,
 			String healthCard, String address, String city, String province, String zipCode) {
 
