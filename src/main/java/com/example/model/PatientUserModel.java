@@ -46,7 +46,9 @@ public class PatientUserModel {
 	 private String zipCode;
 
 	 
-	 
+	public PatientUserModel() {
+		
+	} 
 	public PatientUserModel(String fullName, String birthDate, String gender, String email, String phone,
 			String healthCard, String address, String city, String province, String zipCode) {
 
@@ -61,6 +63,20 @@ public class PatientUserModel {
 		this.province = province;
 		this.zipCode = zipCode;
 	}
+	
+	
+
+	public long getPatientId() {
+		return patientId;
+	}
+
+
+
+	public void setPatientId(long patientId) {
+		this.patientId = patientId;
+	}
+
+
 
 	public String getFullName() {
 		return fullName;
