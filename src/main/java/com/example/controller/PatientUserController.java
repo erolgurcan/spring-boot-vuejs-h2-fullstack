@@ -1,6 +1,7 @@
 package com.example.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,8 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.model.MedicalUserRepository;
 import com.example.model.PatientUserModel;
 import com.example.model.PatientUserRepository;
+import com.example.model.TreatmentModel;
+import com.example.model.TreatmentRepository;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
@@ -29,6 +33,12 @@ public class PatientUserController {
 	@Autowired
 	PatientUserRepository patientUserRepository;
 	
+	@Autowired
+	TreatmentRepository treatRepo;
+	
+	@Autowired
+	MedicalUserRepository docRepo;
+	
 	@GetMapping("/patientUsers")
 	public ResponseEntity<List<PatientUserModel>> getAllPatientUsers(
 			@RequestParam(required = false) String email){
@@ -36,19 +46,23 @@ public class PatientUserController {
 			List<PatientUserModel> result; //= new ArrayList<PatientUserModel>();
 			
 			if(email == null) {
+				
+				
 				result = patientUserRepository.findAll();
 				
 				return result.size() > 0 ? new ResponseEntity<List<PatientUserModel>>(result, HttpStatus.OK)
 						: new ResponseEntity("No result found", HttpStatus.NO_CONTENT);
 				
 			} else {
+				
 				result = patientUserRepository.findByEmail(email);
+			}
 				
 				return result.size() > 0 ? new ResponseEntity<List<PatientUserModel>>(result, HttpStatus.OK)
-						: new ResponseEntity("No result found", HttpStatus.NO_CONTENT);
-			}
+						: new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			
 		} catch(Exception ex) {
-			return new ResponseEntity(ex, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 			
 	}
@@ -63,17 +77,23 @@ public class PatientUserController {
 		}
 	}
 	
-	@PostMapping("/patientUsers")
-	public ResponseEntity<PatientUserModel> createPatientUser(@RequestBody PatientUserModel patientUserModel){
+	@PostMapping("/treatments/{treatmentid}/patientUser") // user story: 5
+	public ResponseEntity<PatientUserModel> createPatientUser(
+			@PathVariable Long treatmentid,
+			@RequestBody PatientUserModel patientUserModel){
+		Optional<TreatmentModel> treat;
 		try {
-			PatientUserModel _patientUserModel = patientUserRepository.save(new PatientUserModel(patientUserModel.getFullName(), patientUserModel.getBirthDate(),patientUserModel.getGender(),patientUserModel.getEmail(),patientUserModel.getPhone(),patientUserModel.getHealthCard(),patientUserModel.getAddress(),patientUserModel.getCity(),patientUserModel.getProvince(),patientUserModel.getZipCode()));
-			return new ResponseEntity<>(_patientUserModel, HttpStatus.CREATED);
+			PatientUserModel newPatient = new PatientUserModel(patientUserModel.getFullName(), patientUserModel.getBirthDate(),patientUserModel.getGender(),patientUserModel.getEmail(),patientUserModel.getPhone(),patientUserModel.getHealthCard(),patientUserModel.getAddress(),patientUserModel.getCity(),patientUserModel.getProvince(),patientUserModel.getZipCode());
+			treat = treatRepo.findById(treatmentid);
+			newPatient.setTreatment(treat.get());
+			patientUserRepository.save(newPatient);
+			return new ResponseEntity<>(newPatient, HttpStatus.CREATED);
 		} catch(Exception e) {
 			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
-	@PutMapping("/patientUsers/{id}")
+	@PutMapping("/patientUsers/{id}") //user story: 11
 	public ResponseEntity<PatientUserModel> updatePatientUser(@PathVariable("id") long id,@RequestBody PatientUserModel patientUserModel){
 		Optional<PatientUserModel> patientData = patientUserRepository.findById(id);
 		
