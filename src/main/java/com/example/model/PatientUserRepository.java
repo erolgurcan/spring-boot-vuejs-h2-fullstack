@@ -9,7 +9,7 @@ public interface PatientUserRepository extends JpaRepository<PatientUserModel,Lo
 	
 	//List<PatientUserModel> findByCard(String healthCard);
 	List<PatientUserModel> findByEmail(String email);
-	List<PatientUserModel> findByPatientId(Long patientId);
+	Optional<PatientUserModel> findByPatientId(Long patientId);
 	
 
 }

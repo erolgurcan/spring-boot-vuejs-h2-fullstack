@@ -52,12 +52,19 @@ public class MedicalUserController {
 
 	}
 
-	@PostMapping("/medicalUsers")
-	public ResponseEntity<List<MedicalUserModel>> addNewMedicalUser(@RequestParam(required = true) String fullName,
-			@RequestParam(required = true) String email, @RequestParam(required = false) String gender,
-			@RequestParam(required = true) String password) {
+	@PostMapping("/medicalUsers") //user story: 7
+	public ResponseEntity<MedicalUserModel> addNewMedicalUser(@RequestParam(required = true) String fullName,
+			@RequestParam(required = true) String email, @RequestParam(required = false) String gender, 
+			@RequestParam(required = false) int medicalID,@RequestParam(required = true) String password, 
+			@RequestParam(required = false) String role) {
+		try {
+			MedicalUserModel newDoc = new MedicalUserModel(fullName, email, gender, medicalID,password, role);
+			medicalUserRepository.save(newDoc);
+			return new ResponseEntity<>(newDoc,HttpStatus.CREATED);
+		}catch(Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 
-		return null;
 	}
 
 }
