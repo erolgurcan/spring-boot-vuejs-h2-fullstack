@@ -6,8 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,14 +27,13 @@ public class MedicalUserController {
 
 	@Autowired
 	MedicalUserRepository medicalUserRepository;
-	
+
 	@GetMapping("/medicalUsers")
 	public ResponseEntity<List<MedicalUserModel>> getAllMedicalUsers(
 			@RequestParam(required = false) Integer medicalID) {
 
 		try {
-			System.out.println("Teste");
-			List<MedicalUserModel> result;		
+			List<MedicalUserModel> result;
 
 			if (medicalID == null) {
 				result = medicalUserRepository.findAll();
@@ -52,19 +55,35 @@ public class MedicalUserController {
 
 	}
 
-	@PostMapping("/medicalUsers") //user story: 7
-	public ResponseEntity<MedicalUserModel> addNewMedicalUser(@RequestParam(required = true) String fullName,
-			@RequestParam(required = true) String email, @RequestParam(required = false) String gender, 
-			@RequestParam(required = false) int medicalID,@RequestParam(required = true) String password, 
-			@RequestParam(required = false) String role) {
+	@PostMapping("/medicalUsers") // user story: 7
+	public ResponseEntity<MedicalUserModel> addNewMedicalUser(@RequestBody MedicalUserModel newMedicalUser) {
 		try {
-			MedicalUserModel newDoc = new MedicalUserModel(fullName, email, gender, medicalID,password, role);
-			medicalUserRepository.save(newDoc);
-			return new ResponseEntity<>(newDoc,HttpStatus.CREATED);
-		}catch(Exception e) {
+			medicalUserRepository.save(newMedicalUser);
+			return new ResponseEntity<>(newMedicalUser, HttpStatus.CREATED);
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 	}
 
+	@DeleteMapping("/medicalUsers/{id}")
+	public ResponseEntity<String> deleteMedicalUser(@PathVariable Long id) {
+		try {
+			System.out.println(id);
+			medicalUserRepository.deleteById(id);
+			return new ResponseEntity<>("Medical User deleted", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@DeleteMapping("/medicalUsers")
+	public ResponseEntity<String> deleteAllMedicalUsers() {
+		try {
+			medicalUserRepository.deleteAll();
+			return new ResponseEntity<>("All medical users deleted", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }
