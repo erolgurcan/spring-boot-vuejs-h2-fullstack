@@ -1,6 +1,5 @@
 package com.example.controller;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,74 +28,78 @@ import com.example.model.TreatmentRepository;
 @RestController
 @RequestMapping("/api")
 public class PatientUserController {
-	
+
 	@Autowired
 	PatientUserRepository patientUserRepository;
-	
+
 	@Autowired
 	TreatmentRepository treatRepo;
-	
+
 	@Autowired
 	MedicalUserRepository docRepo;
-	
+
 	@GetMapping("/patientUsers")
 	public ResponseEntity<List<PatientUserModel>> getAllPatientUsers(
-			@RequestParam(required = false) String email){
+			@RequestParam(required = false) String email) {
 		try {
-			List<PatientUserModel> result; //= new ArrayList<PatientUserModel>();
-			
-			if(email == null) {
-				
-				
+			List<PatientUserModel> result; // = new ArrayList<PatientUserModel>();
+
+			if (email == null) {
+
 				result = patientUserRepository.findAll();
-				
+
 				return result.size() > 0 ? new ResponseEntity<List<PatientUserModel>>(result, HttpStatus.OK)
 						: new ResponseEntity("No result found", HttpStatus.NO_CONTENT);
-				
+
 			} else {
-				
+
 				result = patientUserRepository.findByEmail(email);
 			}
-				
-				return result.size() > 0 ? new ResponseEntity<List<PatientUserModel>>(result, HttpStatus.OK)
-						: new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			
-		} catch(Exception ex) {
+
+			return result.size() > 0 ? new ResponseEntity<List<PatientUserModel>>(result, HttpStatus.OK)
+					: new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+		} catch (Exception ex) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-			
+
 	}
+
 	@GetMapping("/patientUsers/{id}")
-	public ResponseEntity<PatientUserModel> getPatientById(@PathVariable("id") long patientID){
+	public ResponseEntity<PatientUserModel> getPatientById(@PathVariable("id") long patientID) {
 		Optional<PatientUserModel> patientData = patientUserRepository.findById(patientID);
-		
-		if(patientData.isPresent()) {
-			return new ResponseEntity<>(patientData.get(),HttpStatus.OK);
+
+		if (patientData.isPresent()) {
+			return new ResponseEntity<>(patientData.get(), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@PostMapping("/treatments/{treatmentid}/patientUser") // user story: 5
 	public ResponseEntity<PatientUserModel> createPatientUser(
 			@PathVariable Long treatmentid,
-			@RequestBody PatientUserModel patientUserModel){
+			@RequestBody PatientUserModel patientUserModel) {
 		Optional<TreatmentModel> treat;
 		try {
-			PatientUserModel newPatient = new PatientUserModel(patientUserModel.getFullName(), patientUserModel.getBirthDate(),patientUserModel.getGender(),patientUserModel.getEmail(),patientUserModel.getPhone(),patientUserModel.getHealthCard(),patientUserModel.getAddress(),patientUserModel.getCity(),patientUserModel.getProvince(),patientUserModel.getZipCode());
+			PatientUserModel newPatient = new PatientUserModel(patientUserModel.getFullName(),
+					patientUserModel.getBirthDate(), patientUserModel.getGender(), patientUserModel.getEmail(),
+					patientUserModel.getPhone(), patientUserModel.getHealthCard(), patientUserModel.getAddress(),
+					patientUserModel.getCity(), patientUserModel.getProvince(), patientUserModel.getZipCode());
 			treat = treatRepo.findById(treatmentid);
 			newPatient.setTreatment(treat.get());
 			patientUserRepository.save(newPatient);
 			return new ResponseEntity<>(newPatient, HttpStatus.CREATED);
-		} catch(Exception e) {
-			return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
-	@PutMapping("/patientUsers/{id}") //user story: 11
-	public ResponseEntity<PatientUserModel> updatePatientUser(@PathVariable("id") long id,@RequestBody PatientUserModel patientUserModel){
+
+	@PutMapping("/patientUsers/{id}") // user story: 11
+	public ResponseEntity<PatientUserModel> updatePatientUser(@PathVariable("id") long id,
+			@RequestBody PatientUserModel patientUserModel) {
 		Optional<PatientUserModel> patientData = patientUserRepository.findById(id);
-		
+
 		if (patientData.isPresent()) {
 			PatientUserModel _patientUserModel = patientData.get();
 			_patientUserModel.setFullName(patientUserModel.getFullName());
@@ -109,28 +112,28 @@ public class PatientUserController {
 			_patientUserModel.setCity(patientUserModel.getCity());
 			_patientUserModel.setProvince(patientUserModel.getProvince());
 			_patientUserModel.setZipCode(patientUserModel.getZipCode());
-			return new ResponseEntity<>(patientUserRepository.save(_patientUserModel),HttpStatus.OK);
+			return new ResponseEntity<>(patientUserRepository.save(_patientUserModel), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@DeleteMapping("/patientUsers/{id}")
-	public ResponseEntity<HttpStatus> deletePatientUser(@PathVariable("id") long patientID){
+	public ResponseEntity<HttpStatus> deletePatientUser(@PathVariable("id") long patientID) {
 		try {
 			patientUserRepository.deleteById(patientID);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
 	@DeleteMapping("/patientUsers")
-	public ResponseEntity<HttpStatus> deleteAllPatientUsers(){
+	public ResponseEntity<HttpStatus> deleteAllPatientUsers() {
 		try {
 			patientUserRepository.deleteAll();
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
