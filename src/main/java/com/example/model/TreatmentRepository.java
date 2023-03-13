@@ -8,11 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface TreatmentRepository extends JpaRepository<TreatmentModel, Long> {
 	List<TreatmentModel> findByTitle(String title);
-	//List<TreatmentModel> findByPatientId(Long id);
-	//List<TreatmentModel> findByMedicalId(Long id);
-	Optional<TreatmentModel> findById(Long id);
-	
 
-	
+	Optional<TreatmentModel> findById(Long id);
 
 }

@@ -21,22 +21,22 @@ import jakarta.persistence.Table;
 @Table(name = "MedicalUser")
 public class MedicalUserModel {
 
-	public MedicalUserModel() {
-		
-	}
-	
-    public MedicalUserModel( String userFullName, String email, String gender, int medicalID,
-			String password, String role) {
-    	
-		this.userFullName = userFullName;
-		this.email = email;
-		this.gender = gender;
-		this.medicalID = medicalID;
-		this.password = password;
-		Role = role;
-	}
+    public MedicalUserModel() {
 
-	@Id
+    }
+
+    public MedicalUserModel(String userFullName, String email, String gender, int medicalID,
+            String password, String role) {
+
+        this.userFullName = userFullName;
+        this.email = email;
+        this.gender = gender;
+        this.medicalID = medicalID;
+        this.password = password;
+        Role = role;
+    }
+
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
@@ -57,29 +57,26 @@ public class MedicalUserModel {
 
     @Column(name = "Role")
     private String Role = "admin";
-    
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIgnore
-	private Set<TreatmentModel> treatments = new HashSet<>();
-    
-    
-	public void addTreatment(TreatmentModel treat) {
-		this.treatments.add(treat);
-		treat.setDoctor(this);
-		
-	}
 
-   
+    @OneToMany(mappedBy = "id", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<TreatmentModel> treatments = new HashSet<>();
 
-	public Set<TreatmentModel> getTreatments() {
-		return treatments;
-	}
+    public void addTreatment(TreatmentModel treat) {
+        this.treatments.add(treat);
+        treat.setDoctor(this);
 
-	public void setTreatments(Set<TreatmentModel> treatments) {
-		this.treatments = treatments;
-	}
+    }
 
-	public long getId() {
+    public Set<TreatmentModel> getTreatments() {
+        return treatments;
+    }
+
+    public void setTreatments(Set<TreatmentModel> treatments) {
+        this.treatments = treatments;
+    }
+
+    public long getId() {
         return this.id;
     }
 
