@@ -1,0 +1,25 @@
+{
+  "name": "mobile-care-app",
+  "version": "1.0.0",
+  "description": "Mobile web care application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-full": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
+    "start-backend": "cd backend && mvnw spring-boot:run",
+    "start-frontend": "cd frontend && npm run serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erolgurcan/spring-boot-server-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erolgurcan/spring-boot-server-app/issues"
+  },
+  "homepage": "https://github.com/erolgurcan/spring-boot-server-app#readme",
+  "dependencies": {
+    "vue-router": "^4.1.6"
+  }
+}
