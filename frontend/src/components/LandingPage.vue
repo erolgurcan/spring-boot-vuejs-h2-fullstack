@@ -1,19 +1,12 @@
+<script setup>
+</script>
+
 <template>
   <div>
-    <p>Landing Page</p>
+        <p>Landing Page</p>
   </div>
 </template>
 
-<script>
+<style scoped>
 
-export default {
-  name: 'LandingPage',
-  components: {
-  },
-  // your parent component's options
-}
-</script>
-
-<style>
-/* your parent component's styles */
 </style>

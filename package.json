@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start-full": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
     "start-backend": "cd backend && mvnw spring-boot:run",
-    "start-frontend": "cd frontend && npm run serve"
+    "start-frontend": "cd frontend && npm run dev"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/erolgurcan/spring-boot-server-app#readme",
   "dependencies": {
+    "concurrently": "^7.6.0",
     "vue-router": "^4.1.6"
   }
 }
