@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <div class = "col-lg-10 m-auto text-center"  >
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class=" mt-4 navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <RouterLink class="navbar-brand" aria-current="page" to="/">Home</RouterLink>
         <button
