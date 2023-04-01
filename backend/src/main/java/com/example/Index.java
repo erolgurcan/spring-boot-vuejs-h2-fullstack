@@ -36,16 +36,11 @@ public class Index {
 		doctors.add(new MedicalUserModel("Masayoshi Son", "masayoshison@something.com", "male", 1010, "5678", "admin"));
 		
 		ArrayList<PatientUserModel> patients = new ArrayList<>();
-		patients.add(new PatientUserModel("Bill Clinton","19-06-1998","Male","bill@clinton.com","123456789","1234","abc, 123 st","Vancouver","BC","V1V1V2"));
-		patients.add(new PatientUserModel("Barak Obama","12-03-1997","Male","barak@obama.com","113456789","1134","abd, 124 st","Vancouver","BC","V1V2V2"));
-		patients.add(new PatientUserModel("Hillary Clinton","10-04-1996","Female","hillary@clinton.com","123456780","1233","abc, 123 st","Vancouver","BC","V1V1V2"));
-		patients.add(new PatientUserModel("Joe Biden","13-05-1992","Male","joe@biden.com","223456789","1434","abe, 125 st","Vancouver","BC","V1V3V2"));
-		patients.add(new PatientUserModel("Bill Clinton","19-06-1998","Male","bill@clinton.com","123456789","1234","abc, 123 st","Vancouver","BC","V1V1V2"));
-		patients.add(new PatientUserModel("Barak Obama","12-03-1997","Male","barak@obama.com","113456789","1134","abd, 124 st","Vancouver","BC","V1V2V2"));
-		patients.add(new PatientUserModel("Hillary Clinton","10-04-1996","Female","hillary@clinton.com","123456780","1233","abc, 123 st","Vancouver","BC","V1V1V2"));
-		patients.add(new PatientUserModel("Joe Biden","13-05-1992","Male","joe@biden.com","223456789","1434","abe, 125 st","Vancouver","BC","V1V3V2"));
-		patients.add(new PatientUserModel("Hillary Clinton","10-04-1996","Female","hillary@clinton.com","123456780","1233","abc, 123 st","Vancouver","BC","V1V1V2"));
-		patients.add(new PatientUserModel("Joe Biden","13-05-1992","Male","joe@biden.com","223456789","1434","abe, 125 st","Vancouver","BC","V1V3V2"));
+		patients.add(new PatientUserModel("Bill Clinton","19-06-1998","Male","bill@clinton.com","123456789","1234","abc, 123 st","Vancouver","BC","V1V1V2", "1234"));
+		patients.add(new PatientUserModel("Barak Obama","12-03-1997","Male","barak@obama.com","113456789","1134","abd, 124 st","Vancouver","BC","V1V2V2", "1234"));
+		patients.add(new PatientUserModel("Hillary Clinton","10-04-1996","Female","hillary@clinton.com","123456780","1233","abc, 123 st","Vancouver","BC","V1V1V2", "1234"));
+		patients.add(new PatientUserModel("Joe Biden","13-05-1992","Male","joe@biden.com","223456789","1434","abe, 125 st","Vancouver","BC","V1V3V2", "1234"));
+
 		
 		ArrayList<TreatmentModel> treatments = new ArrayList<>();		
 		treatments.add(new TreatmentModel("Cut on hand","Apply Gauze on the injury",
