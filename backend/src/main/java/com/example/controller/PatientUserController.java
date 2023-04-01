@@ -64,6 +64,19 @@ public class PatientUserController {
 		}
 
 	}
+	@GetMapping("/patientLogin/{email}")
+	public ResponseEntity<List> getPatientByEmail(@PathVariable("email") String email ){
+		
+		List<PatientUserModel> patientData = patientUserRepository.findByEmail(email);
+		
+		
+		if (patientData.size() != 0) {
+			return new ResponseEntity<>(patientData, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+	}
 
 	@GetMapping("/patientUsers/{id}")
 	public ResponseEntity<PatientUserModel> getPatientById(@PathVariable("id") long patientID) {
@@ -85,7 +98,7 @@ public class PatientUserController {
 			PatientUserModel newPatient = new PatientUserModel(patientUserModel.getFullName(),
 					patientUserModel.getBirthDate(), patientUserModel.getGender(), patientUserModel.getEmail(),
 					patientUserModel.getPhone(), patientUserModel.getHealthCard(), patientUserModel.getAddress(),
-					patientUserModel.getCity(), patientUserModel.getProvince(), patientUserModel.getZipCode());
+					patientUserModel.getCity(), patientUserModel.getProvince(), patientUserModel.getZipCode() , patientUserModel.getPassword()  ) ;
 			treat = treatRepo.findById(treatmentid);
 			newPatient.setTreatment(treat.get());
 			patientUserRepository.save(newPatient);

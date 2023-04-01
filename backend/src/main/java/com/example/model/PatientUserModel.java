@@ -50,7 +50,17 @@ public class PatientUserModel {
 	 @Column(name = "zipCode")
 	 private String zipCode;
 	 
-	 @ManyToOne(fetch = FetchType.LAZY,optional=false)
+	 @Column (name ="password")
+	 private String  password;
+	 
+	 public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY,optional=false)
 	 @JoinColumn(name = "treatment_id",nullable=false)
 	 @JsonIgnore
 	 private TreatmentModel treatment;
@@ -60,7 +70,7 @@ public class PatientUserModel {
 		
 	} 
 	public PatientUserModel(String fullName, String birthDate, String gender, String email, String phone,
-			String healthCard, String address, String city, String province, String zipCode) {
+			String healthCard, String address, String city, String province, String zipCode, String password) {
 
 		this.fullName = fullName;
 		this.birthDate = birthDate;
@@ -72,6 +82,8 @@ public class PatientUserModel {
 		this.city = city;
 		this.province = province;
 		this.zipCode = zipCode;
+		this.password = password;
+		
 	}
 	
 	
