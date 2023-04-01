@@ -1,9 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LandingPage from '../components/LandingPage.vue'
-import Login from '../components/Login.vue'
-import Register from '../components/Register.vue'
-import MedicalUserDashboard from '../components/MedicalUserDashboard.vue'
-import PatientUserDashboard from '../components/PatientUserDashboard.vue'
+import LandingPage from '../components/LandingPage.vue';
+import Login from '../components/Login.vue';
+import Register from '../components/Register.vue';
+import MedicalUserDashboard from '../components/MedicalUserDashboard.vue';
+import PatientUserDashboard from '../components/PatientUserDashboard.vue';
+import TreatmentsManagement from '../components/TreatmentsManagement.vue';
+import PatientsManagement from '../components/PatientsManagement.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,7 +35,17 @@ const router = createRouter({
       name: 'patient-user-dashboard',
       component: PatientUserDashboard
     },
+    {
+      path: '/treatmentsManagement',
+      name: 'treatmentsManagement',
+      component: TreatmentsManagement
+    },
+    {
+      path: '/patientsManagement',
+      name: 'patientsManagement',
+      component: PatientsManagement
+    }
   ]
 })
 
-export default router
+export default router;
