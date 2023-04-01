@@ -23,9 +23,9 @@ import { RouterLink, RouterView } from 'vue-router'
         <form>
           <input
             type="text"
-            id="login"
+            id="email"
             class="fadeIn second"
-            name="login"
+            name="User Email"
             placeholder="Login User"
           />
           <input
@@ -35,8 +35,18 @@ import { RouterLink, RouterView } from 'vue-router'
             name="login"
             placeholder="Password"
           />
-          <input type="submit" @click="loginMedical" class="fadeIn fourth" value="Log In Medical User" />
-          <input type="submit" @click="loginPatient" class="fadeIn fourth" value="Log In Patient User" />
+          <input
+            type="submit"
+            @click="loginMedical"
+            class="fadeIn fourth"
+            value="Log In Medical User"
+          />
+          <input
+            type="submit"
+            @click="loginPatient"
+            class="fadeIn fourth"
+            value="Log In Patient User"
+          />
         </form>
 
         <!-- Remind Passowrd -->
@@ -61,20 +71,32 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <script>
+import LoginService from '../services/LoginService'
+
 export default {
+  user: 'userLogin',
   data() {
-    return null
+    return {
+      userLoginRequest: {
+        userEmail: '',
+        password: ''
+      }
+    }
   },
   methods: {
-    loginMedical(event) {
+    loginMedical(event) {},
+    loginPatient(event) {
       event.preventDefault()
-      this.$router.push({name: "medical-user-dashboard"})
-    },
-    loginPatient(event){
-      event.preventDefault()
-      this.$router.push({name: "patient-user-dashboard"})
-    }
+      let email = document.getElementById('email').value
+      LoginService.login(email).then((response) => {
+        let password = document.getElementById('password')
 
+        if (password.value === response.data[0].password) {
+          localStorage.setItem('userId', response.data[0].patientId)
+          this.$router.push({ name: 'patient-user-dashboard' })
+        }
+      })
+    }
   }
 }
 </script>

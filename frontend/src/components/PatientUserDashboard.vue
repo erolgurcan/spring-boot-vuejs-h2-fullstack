@@ -19,16 +19,16 @@
       <div class="col-lg-6">
         <div class="card shadow-fade" style="min-height:450px">
           <div class="card-body" style="text-align: left">
-            <h3 class="card-title text-center"><strong>Elon Musk</strong></h3>
+            <h3 class="card-title text-center"><strong>{{fullName}}</strong></h3>
             <hr />
-            <h6 class="card-subtitle mb-2 text-muted">User ID: 1111111</h6>
+            <h6 class="card-subtitle mb-2 text-muted">User ID: {{ userId }}</h6>
             <hr />
             <p class="card-text"><strong>Age :</strong> 40</p>
-            <p class="card-text"><strong>Gender :</strong> Male</p>
-            <p class="card-text"><strong>Phone :</strong> 1 111 11 11</p>
-            <p class="card-text"><strong>Email :</strong> elonmusk@gmail.com</p>
+            <p class="card-text"><strong>Gender :</strong> {{gender}}</p>
+            <p class="card-text"><strong>Phone :</strong> {{phone}}</p>
+            <p class="card-text"><strong>Email :</strong> {{email}}</p>
             <p class="cart text">
-              <strong>Address :</strong> 1111 xxx Street, XXX XXX Vancouver, Canada
+              <strong>Address :</strong>{{address}}
             </p>
           </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="card">
           <h4 class="card-title text-center mt-2"><strong>Assigned Doctor</strong>: Tim Cook</h4>
           <hr />
-          <h5>email: tim.cook@gmail phone: 2 222 22 22</h5>
+          <h5>email: tim.cook@gmail phone: 2 222 22 22  </h5>
           <hr />
           <ul class="list-group" style="text-align: left">
             <li class="list-group-item active"><strong>Upcoming Treatments</strong></li>
@@ -85,5 +85,56 @@
     </div>
   </div>
 </template>
+
+<script>
+import LoginService from "../services/LoginService";
+export default {
+
+
+  data () {
+    return {
+      fullName: "",
+      patientId: "",
+      birthDate: "",
+      gender:"",
+      email:"",
+      phone:"",
+      healthCard:"",
+      address: "",
+      city: "",
+      province:"",
+      zipCode:"",
+
+    }
+  },
+  methods: {
+    fetchUser() {
+      console.log("user fetched")
+     let userId = localStorage.getItem('userId')
+
+
+      LoginService.fetch(userId).then( response=> {
+        console.log(response)
+        this.fullName = response.data.fullName;
+        this.patientId =  response.data.patientId;
+        this.birthDate =  response.data.birthDate;
+        this.gender =  response.data.gender;
+        this.email =  response.data.email;
+        this.phone =  response.data.phone;
+        this.healthCard =  response.data.healthCard;
+        this.address =  response.data.address;
+        this.city =  response.data.city;
+        this.province =  response.data.province;
+        this.zipCode =  response.data.zipCode;
+      } )
+    }
+  },
+
+  mounted(){
+    this.fetchUser();
+  }
+}
+
+</script>
 
 <style scoped></style>

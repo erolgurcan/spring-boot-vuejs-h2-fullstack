@@ -37,6 +37,13 @@ public class PatientUserController {
 
 	@Autowired
 	MedicalUserRepository docRepo;
+	
+	@GetMapping("/getFullInformation/{id}")
+	public List<Object> getFullInformation (@PathVariable("id") long id){
+		
+		return patientUserRepository.GetFullInformation(id);
+		
+	}
 
 	@GetMapping("/patientUsers")
 	public ResponseEntity<List<PatientUserModel>> getAllPatientUsers(
@@ -78,6 +85,8 @@ public class PatientUserController {
 		
 	}
 
+	
+	
 	@GetMapping("/patientUsers/{id}")
 	public ResponseEntity<PatientUserModel> getPatientById(@PathVariable("id") long patientID) {
 		Optional<PatientUserModel> patientData = patientUserRepository.findById(patientID);
@@ -125,6 +134,7 @@ public class PatientUserController {
 			_patientUserModel.setCity(patientUserModel.getCity());
 			_patientUserModel.setProvince(patientUserModel.getProvince());
 			_patientUserModel.setZipCode(patientUserModel.getZipCode());
+			
 			return new ResponseEntity<>(patientUserRepository.save(_patientUserModel), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
