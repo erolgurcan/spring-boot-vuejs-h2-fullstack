@@ -4,7 +4,6 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <div>
-    <p>Login Page</p>
 
     <!-- Allen's code -->
 

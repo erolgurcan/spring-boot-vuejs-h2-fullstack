@@ -38,7 +38,7 @@ public class PatientUserController {
 	@Autowired
 	MedicalUserRepository docRepo;
 	
-	@GetMapping("/getFullInformation/{id}")
+	@GetMapping("/patientUser/getFullInformation/{id}")
 	public List<Object> getFullInformation (@PathVariable("id") long id){
 		
 		return patientUserRepository.GetFullInformation(id);

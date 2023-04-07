@@ -7,6 +7,9 @@ class LoginService {
   fetch(data){
     return http.get(`/patientUsers/${data}`)
   }
+  getPatientFullInformation(data){
+    return http.get(`patientUser/getFullInformation/${data}`)
+  }
 }
 
 export default new LoginService()
