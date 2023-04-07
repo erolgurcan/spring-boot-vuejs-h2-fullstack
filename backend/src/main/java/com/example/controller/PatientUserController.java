@@ -37,6 +37,13 @@ public class PatientUserController {
 
 	@Autowired
 	MedicalUserRepository docRepo;
+	
+	@GetMapping("/getFullInformation/{id}")
+	public List<Object> getFullInformation (@PathVariable("id") long id){
+		
+		return patientUserRepository.GetFullInformation(id);
+		
+	}
 
 	@GetMapping("/patientUsers")
 	public ResponseEntity<List<PatientUserModel>> getAllPatientUsers(
@@ -64,7 +71,22 @@ public class PatientUserController {
 		}
 
 	}
+	@GetMapping("/patientLogin/{email}")
+	public ResponseEntity<List> getPatientByEmail(@PathVariable("email") String email ){
+		
+		List<PatientUserModel> patientData = patientUserRepository.findByEmail(email);
+		
+		
+		if (patientData.size() != 0) {
+			return new ResponseEntity<>(patientData, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+	}
 
+	
+	
 	@GetMapping("/patientUsers/{id}")
 	public ResponseEntity<PatientUserModel> getPatientById(@PathVariable("id") long patientID) {
 		Optional<PatientUserModel> patientData = patientUserRepository.findById(patientID);
@@ -85,7 +107,7 @@ public class PatientUserController {
 			PatientUserModel newPatient = new PatientUserModel(patientUserModel.getFullName(),
 					patientUserModel.getBirthDate(), patientUserModel.getGender(), patientUserModel.getEmail(),
 					patientUserModel.getPhone(), patientUserModel.getHealthCard(), patientUserModel.getAddress(),
-					patientUserModel.getCity(), patientUserModel.getProvince(), patientUserModel.getZipCode());
+					patientUserModel.getCity(), patientUserModel.getProvince(), patientUserModel.getZipCode() , patientUserModel.getPassword()  ) ;
 			treat = treatRepo.findById(treatmentid);
 			newPatient.setTreatment(treat.get());
 			patientUserRepository.save(newPatient);
@@ -112,6 +134,7 @@ public class PatientUserController {
 			_patientUserModel.setCity(patientUserModel.getCity());
 			_patientUserModel.setProvince(patientUserModel.getProvince());
 			_patientUserModel.setZipCode(patientUserModel.getZipCode());
+			
 			return new ResponseEntity<>(patientUserRepository.save(_patientUserModel), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

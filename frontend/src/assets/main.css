@@ -11,7 +11,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE
  */
 :root {
-  --bs-blue: #0d6efd;
+  --bs-blue: #247BA0;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
   --bs-pink: #d63384;
@@ -135,6 +135,11 @@ h3, .h3 {
   h3, .h3 {
     font-size: 1.75rem;
   }
+}
+
+/* h4 custom Mariana*/
+.h4-custom{
+  background-color: #c405a4;
 }
 
 h4, .h4 {
@@ -607,6 +612,18 @@ progress {
 
 .img-thumbnail {
   padding: 0.25rem;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  max-width: 100%;
+  height: auto;
+}
+
+.img-thumbnail-custom {
+  display:block;
+  margin: auto;
+  top:50%;
+  padding: 1rem;
   background-color: #fff;
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
@@ -2157,6 +2174,13 @@ progress {
     -webkit-overflow-scrolling: touch;
   }
 }
+
+.form-group{
+  text-align: right;
+  margin-left: 4rem;
+  margin-right: auto;
+}
+
 .form-label {
   margin-bottom: 0.5rem;
 }
@@ -2164,6 +2188,7 @@ progress {
 .col-form-label {
   padding-top: calc(0.375rem + 1px);
   padding-bottom: calc(0.375rem + 1px);
+  margin-left: auto;
   margin-bottom: 0;
   font-size: inherit;
   line-height: 1.5;
@@ -2180,6 +2205,7 @@ progress {
   padding-bottom: calc(0.25rem + 1px);
   font-size: 0.875rem;
 }
+
 
 .form-text {
   margin-top: 0.25rem;
@@ -4510,6 +4536,31 @@ textarea.form-control-lg {
   color: #fff;
 }
 
+.myRed{
+  background-color: #F25F5C;
+}
+
+.myblue{
+  background-color: #247BA0;
+}
+
+.myPink{
+  background-color: #c405a4;
+}
+
+
+
+.custom-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
 .card {
   position: relative;
   display: flex;
@@ -4547,6 +4598,11 @@ textarea.form-control-lg {
 .card-body {
   flex: 1 1 auto;
   padding: 1rem 1rem;
+}
+
+.custom-card-title {
+  margin-bottom: 0.5rem;
+  color:white;
 }
 
 .card-title {
@@ -7302,6 +7358,7 @@ textarea.form-control-lg {
   margin-bottom: auto !important;
 }
 
+
 .mt-0 {
   margin-top: 0 !important;
 }
@@ -7357,6 +7414,14 @@ textarea.form-control-lg {
 
 .me-5 {
   margin-right: 3rem !important;
+}
+
+.me-6 {
+  margin-right: 8rem !important;
+}
+
+.me-7 {
+  margin-right: 20rem !important;
 }
 
 .me-auto {
@@ -7872,6 +7937,11 @@ textarea.form-control-lg {
 .bg-white {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.bg-blue {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-blue), var(--bs-bg-opacity)) !important;
 }
 
 .bg-body {
