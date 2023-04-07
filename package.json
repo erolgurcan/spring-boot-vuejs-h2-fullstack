@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "install-full": "npm run install-backend && pm run install-frontend",
     "start-full": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
+    "install-backend": "cd backend && chmod +x mvnw && ./mvnw clean package ",
+    "install-frontend": "cd frontend && npm install",
     "start-backend": "cd backend && mvnw spring-boot:run",
     "start-frontend": "cd frontend && npm run dev"
   },
@@ -20,6 +23,7 @@
   },
   "homepage": "https://github.com/erolgurcan/spring-boot-server-app#readme",
   "dependencies": {
+    "backend": "^0.0.0",
     "concurrently": "^7.6.0",
     "vue-router": "^4.1.6"
   }
