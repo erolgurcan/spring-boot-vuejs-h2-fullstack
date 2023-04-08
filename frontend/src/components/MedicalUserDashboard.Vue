@@ -1,7 +1,3 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
   <div>
     <nav class="mt-4" aria-label="breadcrumb">
@@ -18,7 +14,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
     <div class="custom-card mt-5  mx-5  myblue shadow-fade">
       <div class="card-body">
-        <h3 class="text-white"><strong>Tim Cook</strong></h3>
+        <h3 class="text-white"><strong> Hello {{medicalUserModel.userFullName}}</strong></h3>
         <h5 class="text-white"><strong>Medical Registration: </strong> 1005 <strong> | Role:</strong> Admin</h5>
       </div>
     </div>
@@ -53,7 +49,53 @@ import { RouterLink, RouterView } from 'vue-router'
   </div>
 </template>
 
+<script>
+import MedicalLoginService from '../services/MedicalLoginService'
+import patientUserModel from '../models/patientUserModel'
+import medicalUserModel from '../models/medicalUserModel'
+import treatmentModel from '../models/treatmentModel'
+export default {
+  data() {
+    return {
+      patientUserModel,
+      medicalUserModel,
+      treatmentModel
+    }
+  },
+  methods: {
+    fetchMedicalUser() {
+      let userId = localStorage.getItem('userId')
+      console.log(userId);
 
+      MedicalLoginService.fetchMedicalInfoByID(userId)
+        .then((response) => {
+          this.medicalUserModel = new medicalUserModel(response.data);
+          //console.log(response);
+        })
+        // .then(() => {
+        //   this.getPatientFullInformation(this.patientUserModel.patientId)
+        // })
+        .catch((error) => {
+          console.log(error)
+        })
+    }//,
+
+    // getPatientFullInformation(id) {
+    //   LoginService.getPatientFullInformation(id)
+    //     .then((response) => {
+    //       this.medicalUserModel = new medicalUserModel(response.data[0][2])
+    //       this.treatmentModel = new treatmentModel(response.data[0][1])
+    //     })
+    //     .catch((error) => {
+    //       console.log(error)
+    //     })
+    // }
+  },
+  mounted() {
+    this.fetchMedicalUser()
+  }
+}
+</script>
 
 
 

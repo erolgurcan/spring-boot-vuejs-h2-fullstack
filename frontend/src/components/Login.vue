@@ -91,7 +91,7 @@ export default {
         let password = document.getElementById('password')
 
         if (password.value === response.data[0].password) {
-          localStorage.setItem('userId', response.data[0].medicalid)
+          localStorage.setItem('userId', response.data[0].medicalID)
           this.$router.push({ name: 'medical-user-dashboard' })
         }
       })

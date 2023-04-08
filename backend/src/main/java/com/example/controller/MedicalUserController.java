@@ -43,6 +43,20 @@ public class MedicalUserController {
 		
 	}
 	
+	@GetMapping("/medicalUsers/{medicalID}")
+	public ResponseEntity<List> getMedicByEmail(@PathVariable("medicalID") Integer medicalID ){
+		
+		List<MedicalUserModel> medicalData = medicalUserRepository.findBymedicalID(medicalID);
+		
+		
+		if (medicalData.size() != 0) {
+			return new ResponseEntity<>(medicalData, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+	}
+	
 	@GetMapping("/medicalUsers")
 	public ResponseEntity<List<MedicalUserModel>> getAllMedicalUsers(
 			@RequestParam(required = false) Integer medicalID) {
