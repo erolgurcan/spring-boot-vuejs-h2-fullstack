@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.model.MedicalUserModel;
 import com.example.model.MedicalUserRepository;
+import com.example.model.PatientUserModel;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
@@ -27,7 +28,21 @@ public class MedicalUserController {
 
 	@Autowired
 	MedicalUserRepository medicalUserRepository;
-
+	
+	@GetMapping("/medicalLogin/{email}")
+	public ResponseEntity<List> getMedicByEmail(@PathVariable("email") String email ){
+		
+		List<MedicalUserModel> medicalData = medicalUserRepository.findByEmail(email);
+		
+		
+		if (medicalData.size() != 0) {
+			return new ResponseEntity<>(medicalData, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+	}
+	
 	@GetMapping("/medicalUsers")
 	public ResponseEntity<List<MedicalUserModel>> getAllMedicalUsers(
 			@RequestParam(required = false) Integer medicalID) {

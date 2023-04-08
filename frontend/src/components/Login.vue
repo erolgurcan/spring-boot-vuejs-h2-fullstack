@@ -71,6 +71,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <script>
 import LoginService from '../services/LoginService'
+import MedicalLoginService from '../services/MedicalLoginService';
 
 export default {
   user: 'userLogin',
@@ -83,7 +84,18 @@ export default {
     }
   },
   methods: {
-    loginMedical(event) {},
+    loginMedical(event) {
+      event.preventDefault()
+      let email = document.getElementById('email').value
+      MedicalLoginService.login(email).then((response) => {
+        let password = document.getElementById('password')
+
+        if (password.value === response.data[0].password) {
+          localStorage.setItem('userId', response.data[0].medicalid)
+          this.$router.push({ name: 'medical-user-dashboard' })
+        }
+      })
+    },
     loginPatient(event) {
       event.preventDefault()
       let email = document.getElementById('email').value
