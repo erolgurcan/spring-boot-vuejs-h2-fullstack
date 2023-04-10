@@ -11,7 +11,7 @@ public interface MedicalUserRepository extends JpaRepository<MedicalUserModel, L
 
 	List<MedicalUserModel> findByEmail(String email);
 
-	List<MedicalUserModel> findBymedicalID(int id);
+	List<MedicalUserModel> findBymedicalID(Integer medicalID);
 
 	@Query(value = "SELECT m FROM MedicalUserModel m LEFT JOIN FETCH m.treatments where m.id = :id")
 	Optional<MedicalUserModel> findByIdEagerly(Long id);

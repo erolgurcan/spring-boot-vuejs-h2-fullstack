@@ -4,9 +4,10 @@ class MedicalLoginService {
   login(data) {
     return http.get(`/medicalLogin/${data}`)
   }
-  fetchMedicalInfoByID(data) {
+  fetchMedicalInfoByMedicalID(data) {
     return http.get(`/medicalUsers/${data}`)
   }
+
 }
 
 export default new MedicalLoginService()
