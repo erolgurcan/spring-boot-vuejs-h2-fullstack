@@ -14,8 +14,8 @@
 
     <div class="custom-card mt-5  mx-5  myblue shadow-fade">
       <div class="card-body">
-        <h3 class="text-white"><strong> Hello {{medicalUserModel.userFullName}}</strong></h3>
-        <h5 class="text-white"><strong>Medical Registration: </strong> 1005 <strong> | Role:</strong> Admin</h5>
+        <h3 class="text-white"><strong> Hello {{ medicalUserModel.userFullName }}</strong></h3>
+        <h5 class="text-white"><strong>Medical Registration: </strong> {{ medicalUserModel.medicalID }} <strong> | Role:</strong> {{medicalUserModel.role}}</h5>
       </div>
     </div>
 
@@ -64,13 +64,12 @@ export default {
   },
   methods: {
     fetchMedicalUser() {
-      let userId = localStorage.getItem('userId')
-      console.log(userId);
+      let MedicaluserId = localStorage.getItem('userId')
+      console.log(MedicaluserId);
 
-      MedicalLoginService.fetchMedicalInfoByID(userId)
+      MedicalLoginService.fetchMedicalInfoByMedicalID(MedicaluserId)
         .then((response) => {
           this.medicalUserModel = new medicalUserModel(response.data);
-          //console.log(response);
         })
         // .then(() => {
         //   this.getPatientFullInformation(this.patientUserModel.patientId)
