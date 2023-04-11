@@ -24,7 +24,7 @@
       <div class="col-lg-5">
         <div class="card shadow-fade py-4">
           
-          <RouterLink class="nav-link active" aria-current="page" to="/treatmentsManagement">
+          <RouterLink class="nav-link active" aria-current="page" to="/TreatmentsManagement">
         <img src="../assets/images/treatment.png" class="img-thumbnail-custom shadow-fade">
           </RouterLink>
     
@@ -54,44 +54,36 @@ import MedicalLoginService from '../services/MedicalLoginService'
 import patientUserModel from '../models/patientUserModel'
 import medicalUserModel from '../models/medicalUserModel'
 import treatmentModel from '../models/treatmentModel'
+import TreatmentsManagement from './TreatmentsManagement.vue'
 export default {
   data() {
     return {
       patientUserModel,
       medicalUserModel,
-      treatmentModel
+      treatmentModel,
     }
   },
   methods: {
     fetchMedicalUser() {
       let MedicaluserId = localStorage.getItem('userId')
       console.log(MedicaluserId);
+      
 
       MedicalLoginService.fetchMedicalInfoByMedicalID(MedicaluserId)
         .then((response) => {
           this.medicalUserModel = new medicalUserModel(response.data);
+          console.log(response.data);
         })
-        // .then(() => {
-        //   this.getPatientFullInformation(this.patientUserModel.patientId)
-        // })
+       
         .catch((error) => {
           console.log(error)
         })
     }//,
 
-    // getPatientFullInformation(id) {
-    //   LoginService.getPatientFullInformation(id)
-    //     .then((response) => {
-    //       this.medicalUserModel = new medicalUserModel(response.data[0][2])
-    //       this.treatmentModel = new treatmentModel(response.data[0][1])
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //     })
-    // }
+ 
   },
   mounted() {
-    this.fetchMedicalUser()
+    this.fetchMedicalUser();
   }
 }
 </script>

@@ -28,7 +28,7 @@ import { RouterLink, RouterView } from 'vue-router'
             placeholder="Login User"
           />
           <input
-            type="text"
+            type="password"
             id="password"
             class="fadeIn third"
             name="login"
@@ -92,6 +92,7 @@ export default {
 
         if (password.value === response.data[0].password) {
           localStorage.setItem('userId', response.data[0].medicalID)
+          localStorage.setItem('id', response.data[0].id)
           this.$router.push({ name: 'medical-user-dashboard' })
         }
       })
@@ -230,7 +231,8 @@ input[type='reset']:active {
   transform: scale(0.95);
 }
 
-input[type='text'] {
+input[type='text'],
+input[type='password']{
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
