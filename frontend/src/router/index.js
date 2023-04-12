@@ -38,7 +38,8 @@ const router = createRouter({
     {
       path: '/treatmentsManagement',
       name: 'treatmentsManagement',
-      component: TreatmentsManagement
+      component: TreatmentsManagement,
+      props: true
     },
     {
       path: '/patientsManagement',

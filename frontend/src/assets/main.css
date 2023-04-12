@@ -3057,6 +3057,13 @@ textarea.form-control-lg {
   opacity: 0.65;
 }
 
+
+.btn-primary2 {
+  color: #fff;
+  background-color: #F25F5C;
+  border-color: #F25F5C;
+}
+
 .btn-primary {
   color: #fff;
   background-color: #c405a4;
@@ -3295,6 +3302,11 @@ textarea.form-control-lg {
   color: #fff;
   background-color: #212529;
   border-color: #212529;
+}
+
+.btn-outline-primary2 {
+  color: #F25F5C;
+  border-color: #F25F5C;
 }
 
 .btn-outline-primary {

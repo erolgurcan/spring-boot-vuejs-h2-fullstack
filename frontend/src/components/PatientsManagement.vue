@@ -3,7 +3,10 @@
         <div>
             <nav class="mt-4" aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item">
+                        <router-link to="/medicalUserDashboard">
+                            Home
+                        </router-link></li>
                     <li class="breadcrumb-item active" aria-current="page">Patients</li>
                 </ol>
             </nav>
@@ -35,7 +38,7 @@
                                     <label for="fullName" class="col-form-label text-lg-end">Full Name:</label>
                                 </div>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="recipient-name">
+                                    <input type="text" class="form-control" id="recipient-name" v-model="patData.fullName">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -43,7 +46,7 @@
                                     <label for="recipient-name" class="col-form-label text-lg-end">Birth Date:</label>
                                 </div>
                                 <div class="col-sm-3 ">
-                                    <input type="date" class="form-control" id="birthdate">
+                                    <input type="date" class="form-control" id="birthdate" v-model="patData.birthDate">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -51,11 +54,11 @@
                                 <label class="my-1 col-form-label text-lg-end" for="inlineFormCustomSelectPref"> Gender:</label>
                                 </div>
                                 <div class="col-sm-4">
-                                <select class="custom-select" id="inlineFormCustomSelect">
+                                <select class="custom-select" id="selectGender" @change ="handleGenderSelect" v-model="patData.gender">
                                     <option selected>Choose...</option>
-                                    <option value="1">Male</option>
-                                    <option value="2">Female</option>
-                                    <option value="3">Prefer not inform</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Not informed">Prefer not inform</option>
                                 </select>
                             </div>
                             </div>
@@ -64,7 +67,15 @@
                                     <label for="recipient-name" class="col-form-label text-lg-end">Email:</label>
                                 </div>
                                 <div class="col-sm-7">
-                                    <input type="email" class="form-control" id="recipient-name">
+                                    <input type="email" class="form-control" id="recipient-name" v-model="patData.email">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="recipient-name" class="col-form-label text-lg-end">Password:</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="recipient-name" v-model="patData.password">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -72,7 +83,7 @@
                                     <label for="recipient-name" class="col-form-label">Phone:</label>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="recipient-name">
+                                    <input type="text" class="form-control" id="recipient-name" v-model="patData.phone">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -80,7 +91,7 @@
                                     <label for="recipient-name" class="col-form-label">Health Card Number:</label>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="recipient-name">
+                                    <input type="text" class="form-control" id="recipient-name" v-model="patData.healthCard">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -88,7 +99,7 @@
                                     <label for="recipient-name" class="col-form-label">Address:</label>
                                 </div>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" id="recipient-name">
+                                    <input type="text" class="form-control" id="recipient-name" v-model="patData.address">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -96,7 +107,7 @@
                                     <label for="recipient-name" class="col-form-label">City:</label>
                                 </div>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="recipient-name">
+                                    <input type="text" class="form-control" id="recipient-name" v-model="patData.city">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -104,7 +115,7 @@
                                     <label for="recipient-name" class="col-form-label">Province:</label>
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="recipient-name">
+                                    <input type="text" class="form-control" id="recipient-name" v-model="patData.province">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -113,15 +124,15 @@
                                         Code:</label>
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="recipient-name">
+                                    <input type="text" class="form-control" id="recipient-name" v-model="patData.zipCode">
                                 </div>
                             </div>
 
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Send message</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" @click="savePatient" data-dismiss="modal">Save</button>
                     </div>
                 </div>
             </div>
@@ -146,62 +157,87 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Bill Clinton</td>
-                    <td>19-06-1998</td>
-                    <td>1234</td>
-                    <td>bill@clinton.com</td>
-                    <td>123456789</td>
-                    <td>abc, 123 st</td>
-                    <td>Vancouver</td>
-                    <td>BC</td>
-                    <td>V1V1V2</td>
+                
+                <tr v-if="patients.length" v-for="(pat, index) in patients" :key="index">
+                    <th scope="row">{{ pat.patientId }}</th>
+                    <td > {{pat.fullName }} </td>
+                    <td>{{pat.birthDate}}</td>
+                    <td>{{pat.healthCard}}</td>
+                    <td>{{pat.email}}</td>
+                    <td>{{pat.phone}}</td>
+                    <td>{{pat.address}}</td>
+                    <td>{{pat.city}}</td>
+                    <td>{{pat.province}}</td>
+                    <td>{{pat.zipCode}}</td>
                 </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Barak Obama</td>
-                    <td>12-03-1997</td>
-                    <td>1234</td>
-                    <td>barak@obama.com</td>
-                    <td>113456789</td>
-                    <td>abc, 124 st</td>
-                    <td>Vancouver</td>
-                    <td>BC</td>
-                    <td>V1V1V2</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Hillary Clinton</td>
-                    <td>10-04-1996</td>
-                    <td>1234</td>
-                    <td>hillary@clinton.com</td>
-                    <td>123456780</td>
-                    <td>abc, 123 st</td>
-                    <td>Vancouver</td>
-                    <td>BC</td>
-                    <td>V1V1V2</td>
-                </tr>
-                <tr>
-                    <th scope="row">4</th>
-                    <td>Joe Biden</td>
-                    <td>13-05-1992</td>
-                    <td>1234</td>
-                    <td>joe@biden.com</td>
-                    <td>223456789</td>
-                    <td>abc, 125 st</td>
-                    <td>Vancouver</td>
-                    <td>BC</td>
-                    <td>V1V1V2</td>
-                </tr>
-
             </tbody>
         </table>
     </div>
 </template>
     
 <script>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router';
+import PatientInfoService from '../services/PatientInfoService';
+
+export default{
+    name:"patientsList",
+    
+    data(){
+        const patData= {
+        fullName: '',
+        birthDate: '',
+        gender: '',
+        email: '',
+        phone: '',
+        healthCard: '',
+        address: '',
+        city: '',
+        province: '',
+        zipCode: '',
+        password: '',
+        };
+        
+        return{
+            patients:[],
+            treatmendId: 1,
+            patData            
+        }
+
+    },
+
+    methods: {
+
+
+        savePatient(event){
+            event.preventDefault();
+            PatientInfoService.addPatient(this.treatmendId,this.patData)
+                .then(response=>{
+                    console.log(response.data);
+                })
+                .catch(error=>{
+                    console.log(error);
+                })
+
+
+        },
+
+        retrievePatientInfo(){
+            PatientInfoService.getPatients()
+                .then(response=>{
+                    this.patients = response.data;
+                })
+                .catch(error=>{
+                    console.log(error);
+                })
+        }
+
+    },
+
+    mounted(){
+        this.retrievePatientInfo();
+        this.treatmendId = localStorage.getItem('treatId');
+    }
+}
 </script>
     
 <style></style>
