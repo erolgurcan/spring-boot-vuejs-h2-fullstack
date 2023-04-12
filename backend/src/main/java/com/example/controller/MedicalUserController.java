@@ -87,6 +87,7 @@ public class MedicalUserController {
 	@PostMapping("/medicalUsers") // user story: 7
 	public ResponseEntity<MedicalUserModel> addNewMedicalUser(@RequestBody MedicalUserModel newMedicalUser) {
 		try {
+			
 			medicalUserRepository.save(newMedicalUser);
 			return new ResponseEntity<>(newMedicalUser, HttpStatus.CREATED);
 		} catch (Exception e) {

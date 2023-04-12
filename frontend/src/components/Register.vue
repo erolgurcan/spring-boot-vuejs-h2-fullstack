@@ -11,13 +11,12 @@ import { RouterLink, RouterView } from 'vue-router'
           <img src="../assets/images/selfmedlogo.png" id="icon" alt="User Icon" />
         </div>
         <form>
-          <input type="text" id="userFullName" class="fadeIn second" name="User Full Name" placeholder="Full Name" />
-          <input type="text" id="userEmail" class="fadeIn third" name="User Email" placeholder="Email" />
-          <input type="text" id="userGender" class="fadeIn fourth" name="Gender" placeholder="Gender" />
-          <input type="text" id="medicalID" class="fadeIn fifth" name="Medical ID" placeholder="Medical ID" />
-          <input type="text" id="userPassword" class="fadeIn sixth" name="Password" placeholder="Password" />
-          <input type="text" id="userRole" class="fadeIn seventh" name="Role" placeholder="User Role" />
-          <input type="submit" @click="registerMedical" class="fadeIn eighth" value="Register Medical User" />
+          <input type="text" id="userFullName" class="fadeIn second" name="User Full Name" placeholder="Full Name"/>
+          <input type="text" id="userEmail" class="fadeIn third" name="User Email" placeholder="Email"/>
+          <input type="text" id="userGender" class="fadeIn fourth" name="Gender" placeholder="Gender"/>
+          <input type="text" id="medicalID" class="fadeIn fifth" name="Medical ID" placeholder="Medical ID"/>
+          <input type="text" id="userPassword" class="fadeIn sixth" name="Password" placeholder="Password"/>
+          <input type="submit" @click="registerMedical" class="fadeIn eighth" value="Register Medical User"/>
         </form>
       </div>
     </div>
@@ -25,13 +24,52 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <script>
-
+import RegistrationService from '../services/RegistrationService';
 export default {
+  name: "userInfo",
+  data() {
 
+    const userInfo = {
+      userFullName: '',
+      email: '',
+      gender: '',
+      medicalID: '',
+      password: '',
+
+    }
+    return {
+      userInfo
+
+    }
+
+
+  },
   methods: {
     registerMedical(event) {
       event.preventDefault()
-     
+      let fullName = document.getElementById('userFullName').value
+      console.log(fullName);
+      let email = document.getElementById('userEmail').value
+      let gender = document.getElementById('userGender').value
+      let medicalID = document.getElementById('medicalID').value
+      let password = document.getElementById('userPassword').value
+
+
+      this.userInfo.userFullName = document.getElementById('userFullName').value;
+      this.userInfo.email = document.getElementById('userEmail').value;
+      this.userInfo.gender = document.getElementById('userGender').value;
+      this.userInfo.medicalID = document.getElementById('medicalID').value;
+      this.userInfo.password = document.getElementById('userPassword').value;
+
+      RegistrationService.addMedicalUser(this.userInfo)
+        .then(response => {
+          console.log(response.data);
+          this.$router.push({ name: 'login' })
+
+        })
+        .catch(error => {
+          console.log(error);
+        })
     }
   },
 }
