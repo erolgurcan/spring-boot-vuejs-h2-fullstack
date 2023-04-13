@@ -44,12 +44,16 @@
           <hr />
           <ul class="list-group" style="text-align: left">
             <li class="list-group-item active"><strong>Upcoming Treatments</strong></li>
-            <li class="list-group-item"><strong>Applied For: </strong> {{treatmentModel.title}}</li>
+            <li class="list-group-item">
+              <strong>Applied For: </strong> {{ treatmentModel.title }}
+            </li>
             <li class="list-group-item">
               <strong>How to threat: </strong> {{ treatmentModel.treatProcess }}
             </li>
-            <li class="list-group-item"><strong>Equipments: </strong>{{treatmentModel.materials}}</li>
-            <li class="list-group-item"><strong>Tips:</strong> {{treatmentModel.tips}}</li>
+            <li class="list-group-item">
+              <strong>Equipments: </strong>{{ treatmentModel.materials }}
+            </li>
+            <li class="list-group-item"><strong>Tips:</strong> {{ treatmentModel.tips }}</li>
           </ul>
           <p>
             <button
@@ -120,8 +124,9 @@ export default {
     getPatientFullInformation(id) {
       LoginService.getPatientFullInformation(id)
         .then((response) => {
-          this.medicalUserModel = new medicalUserModel(response.data[0][2])
-          this.treatmentModel = new treatmentModel(response.data[0][1])
+          console.log(response.data[0][2])
+          this.medicalUserModel = new medicalUserModel([response?.data[0][2]])
+          this.treatmentModel = new treatmentModel(response?.data[0][1])
         })
         .catch((error) => {
           console.log(error)
