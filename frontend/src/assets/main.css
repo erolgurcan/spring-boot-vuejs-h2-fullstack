@@ -3019,6 +3019,15 @@ textarea.form-control-lg {
   z-index: 3;
 }
 
+.error{
+  color: rgb(145, 4, 4);
+  background-color: rgb(238, 193, 193);
+  text-align: center;
+  flex: 0 0 auto;
+  width: 40%;
+  margin-top: 0.3rem;
+}
+
 .btn {
   display: inline-block;
   font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";

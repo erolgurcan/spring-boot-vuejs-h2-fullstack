@@ -2,7 +2,10 @@
   <div>
     <nav class="mt-4" aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item">
+          <router-link to="/">
+            Home
+          </router-link></li>
         <li class="breadcrumb-item active" aria-current="page">Medical Dashboard</li>
       </ol>
     </nav>
