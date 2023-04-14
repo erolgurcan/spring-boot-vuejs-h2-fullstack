@@ -5,7 +5,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <router-link to="/medicalUserDashboard">
-                            Home
+                            Dashboard
                         </router-link></li>
                     <li class="breadcrumb-item active" aria-current="page">Patients</li>
                 </ol>
@@ -213,6 +213,7 @@ export default{
             PatientInfoService.addPatient(this.treatmendId,this.patData)
                 .then(response=>{
                     console.log(response.data);
+                    location.reload();
                 })
                 .catch(error=>{
                     console.log(error);

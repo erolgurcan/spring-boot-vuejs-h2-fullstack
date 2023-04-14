@@ -4,7 +4,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <router-link to="/medicalUserDashboard">
-            Home
+            Dashboard
           </router-link></li>
         <li class="breadcrumb-item active" aria-current="page">Treatments</li>
       </ol>

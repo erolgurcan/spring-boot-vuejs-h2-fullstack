@@ -52,6 +52,9 @@ import { RouterLink, RouterView } from 'vue-router'
         <div id="formFooter">
           <a class="underlineHover" href="#">Forgot Password?</a>
         </div>
+        <div id="alert">
+            
+        </div>
       </div>
     </div>
     <!-- Allen's code -->
@@ -95,6 +98,19 @@ export default {
           localStorage.setItem('id', response.data[0].id)
           this.$router.push({ name: 'medical-user-dashboard' })
         }
+        else{
+          const msg = document.getElementById('alert');
+          msg.classList.add("alert");
+          msg.classList.add("alert-primary");
+          msg.textContent = "Username or password invalid";
+          msg.setAttribute("role", "alert");
+        }
+      }).catch(error=>{
+        const msg = document.getElementById('alert');
+        msg.classList.add("alert");
+        msg.classList.add("alert-primary");
+        msg.textContent = "If you are not a doctor, click on Log In Patient User";
+        msg.setAttribute("role", "alert");
       })
     },
     loginPatient(event) {
@@ -107,6 +123,19 @@ export default {
           localStorage.setItem('userId', response.data[0].patientId)
           this.$router.push({ name: 'patient-user-dashboard' })
         }
+        else{
+          const msg = document.getElementById('alert');
+          msg.classList.add("alert");
+          msg.classList.add("alert-primary");
+          msg.textContent = "Username or password invalid";
+          msg.setAttribute("role", "alert");
+        }
+      }).catch(error =>{
+        const msg = document.getElementById('alert');
+        msg.classList.add("alert");
+        msg.classList.add("alert-primary");
+        msg.textContent = "If you are not a patient, click on Log In Medical User";
+        msg.setAttribute("role", "alert");
       })
     }
   }
